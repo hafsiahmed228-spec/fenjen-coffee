@@ -39,9 +39,9 @@ button{font:inherit;color:inherit}
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3 0 0 0 0 .3 0 0 0 0 .28 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
 /* barre du haut */
-.top{position:fixed;inset:0 0 auto;z-index:40;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px max(16px,env(safe-area-inset-left));pointer-events:none}
+.top{position:fixed;inset:0 0 auto;z-index:40;display:flex;justify-content:flex-end;align-items:center;gap:12px;padding:12px max(16px,env(safe-area-inset-left));pointer-events:none}
 .top > *{pointer-events:auto}
-.demo{font-size:12.5px;background:rgba(35,39,31,.82);color:#e9e6dc;padding:6px 12px;border-radius:999px;backdrop-filter:blur(6px)}
+.demo{position:fixed;left:16px;bottom:16px;font-size:12.5px;background:rgba(35,39,31,.82);color:#e9e6dc;padding:6px 12px;border-radius:999px;backdrop-filter:blur(6px)}
 .top .tools{display:flex;gap:8px}
 .pill{border:1px solid rgba(35,39,31,.18);background:rgba(236,235,230,.9);backdrop-filter:blur(6px);border-radius:999px;padding:7px 14px;font-size:14px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
 .pill[aria-pressed=true]{background:var(--ceiling);color:var(--bulb);border-color:var(--ceiling)}
@@ -73,6 +73,45 @@ button{font:inherit;color:inherit}
 .enter{position:absolute;left:50%;bottom:28px;transform:translateX(-50%);z-index:3;
   background:var(--plaster);color:var(--sage-d);text-decoration:none;font-weight:600;padding:14px 26px;border-radius:999px;display:inline-flex;gap:10px;align-items:center;box-shadow:0 10px 30px -10px rgba(0,0,0,.6)}
 .leaves{position:absolute;inset:auto 0 0;height:120px;pointer-events:none;z-index:2}
+
+
+/* ---------- HERO SCRUB ---------- */
+.scrub{height:520vh;position:relative;background:#0d0a06}
+.stage{position:sticky;top:0;height:100svh;overflow:hidden;color:#f4efe4}
+.ambient{position:absolute;inset:-60px;background:#120d07 url(frames/bg.jpg) center/cover;filter:blur(30px) brightness(.45) saturate(1.2)}
+#cv{position:absolute;inset:0;width:100%;height:100%}
+.veil{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(10,7,4,.55),transparent 22%,transparent 62%,rgba(10,7,4,.85))}
+.brand{position:absolute;top:16px;inset-inline-start:max(18px,env(safe-area-inset-left));display:flex;align-items:baseline;gap:10px;z-index:5}
+.brand .w{font:400 22px/1 "Marcellus",serif;letter-spacing:.12em}
+.brand .a{font:700 18px/1 "Reem Kufi",serif;color:#cbbf9f}
+.chap{position:absolute;z-index:4;opacity:0;transition:opacity .35s ease,transform .35s ease;transform:translateY(14px);pointer-events:none;max-width:min(30rem,88vw)}
+.chap.on{opacity:1;transform:none;pointer-events:auto}
+.chap h1,.chap h2{font:400 clamp(44px,8.5vw,104px)/.95 var(--display);letter-spacing:-.01em;text-wrap:balance}
+[dir=rtl] .chap h1,[dir=rtl] .chap h2{line-height:1.15}
+.chap p{margin-top:16px;font-size:18px;color:#d8cfbd;max-width:30ch}
+.c1,.c3{inset-inline-start:max(22px,6vw);bottom:12vh}
+.c2{inset-inline-start:max(22px,6vw);bottom:12vh}
+.c2 p{font:400 clamp(26px,4vw,40px)/1.15 var(--display);color:#f4efe4;max-width:14ch}
+.status{display:inline-flex;align-items:center;gap:9px;margin-top:22px;font-size:15px;color:#e8e0cf}
+.ctas{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.btn.wa2{background:#f4efe4;color:#2b2418}
+.btn.line{border:1px solid rgba(244,239,228,.4);color:#f4efe4}
+.lbl{position:absolute;z-index:4;display:flex;align-items:center;gap:10px;font-size:15px;font-weight:500;color:#f4efe4;opacity:0;transition:opacity .3s ease;white-space:nowrap;transform:translateY(-50%)}
+.lbl i{display:block;width:44px;height:1px;background:rgba(244,239,228,.7)}
+.lbl.on{opacity:1}
+.hint{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:4;font-size:13px;color:#cbbf9f;transition:opacity .3s}
+.loadbar{position:absolute;left:0;right:0;bottom:0;height:2px;z-index:5}
+.loadbar span{display:block;height:100%;width:0;background:var(--bulb);transition:width .2s,opacity .6s}
+@media(max-width:760px){
+  .c1,.c3,.c2{bottom:9vh}
+  .chap p{font-size:16px}
+  .lbl{font-size:13px}.lbl i{width:22px}
+  .veil{background:linear-gradient(180deg,rgba(10,7,4,.5),transparent 20%,transparent 45%,rgba(10,7,4,.92) 88%)}
+  .chap,.lbl{text-shadow:0 2px 18px rgba(0,0,0,.7)}
+  .brand .a{display:none}
+}
+@media(min-width:761px){.c1,.c2,.c3{bottom:auto;top:50%;transform:translateY(-40%)}.chap.on{transform:translateY(-50%)}}
 
 /* ---------- À L'INTÉRIEUR ---------- */
 .inside{background:var(--ceiling);color:#e8e5da;position:relative;padding-bottom:90px}
@@ -185,34 +224,40 @@ footer a{color:var(--bulb);text-decoration:none;font-weight:500}
   </div>
 </div>
 
-<!-- FAÇADE -->
-<header class="facade plaster" id="top">
-  <div class="sign">
-    <div class="ar" lang="ar">فنجان</div>
-    <h1>FENJEN</h1>
-    <div class="cafe"><span>EST</span><i>Café</i><span>2024</span></div>
-    <p class="sub" data-t="heroSub"></p>
-    <div class="status"><span class="lamp" id="lamp"></span><span id="statusTxt"></span></div>
-  </div>
+<!-- HERO : la boisson se défait au scroll -->
+<section class="scrub" id="top" aria-label="Latte Rouzata glacé">
+  <div class="stage">
+    <div class="ambient" aria-hidden="true"></div>
+    <canvas id="cv" aria-hidden="true"></canvas>
+    <div class="veil" aria-hidden="true"></div>
 
-  <div class="awning" aria-hidden="true"></div>
-  <div class="window" aria-hidden="true">
-    <div class="strings" id="strings"></div>
-    <div class="reflect"></div>
-    <svg class="leaves" viewBox="0 0 1200 120" preserveAspectRatio="none">
-      <g fill="#3f5a3a">
-        <path d="M0 120 C40 60 80 40 130 30 C100 60 80 90 70 120Z"/>
-        <path d="M60 120 C90 50 150 10 210 0 C170 40 140 80 130 120Z" fill="#4c6a45"/>
-        <path d="M150 120 C170 80 200 60 250 55 C220 80 205 100 200 120Z"/>
-        <path d="M1200 120 C1160 60 1120 40 1070 30 C1100 60 1120 90 1130 120Z"/>
-        <path d="M1140 120 C1110 50 1050 10 990 0 C1030 40 1060 80 1070 120Z" fill="#4c6a45"/>
-        <path d="M1050 120 C1030 80 1000 60 950 55 C980 80 995 100 1000 120Z"/>
-        <path d="M520 120 C540 90 570 80 600 78 C630 80 660 90 680 120Z" fill="#35502f"/>
-      </g>
-    </svg>
+    <div class="brand"><span class="w">FENJEN</span><span class="a" lang="ar">فنجان</span></div>
+
+    <div class="chap c1">
+      <h1 data-t="h1"></h1>
+      <p data-t="h1p"></p>
+      <div class="status"><span class="lamp" id="lamp"></span><span id="statusTxt"></span></div>
+    </div>
+
+    <div class="chap c2"><p data-t="c2"></p></div>
+    <div class="lbl" data-y=".17"><i></i><span data-t="l1"></span></div>
+    <div class="lbl" data-y=".26"><i></i><span data-t="l2"></span></div>
+    <div class="lbl" data-y=".375"><i></i><span data-t="l3"></span></div>
+    <div class="lbl" data-y=".465"><i></i><span data-t="l4"></span></div>
+
+    <div class="chap c3">
+      <h2 data-t="h3"></h2>
+      <p data-t="h3p"></p>
+      <div class="ctas">
+        <a class="btn wa2 waLink" target="_blank" rel="noopener" data-t="taBtn"></a>
+        <a class="btn line" href="#inside" data-t="seeMenu"></a>
+      </div>
+    </div>
+
+    <div class="hint" id="hint" data-t="hint"></div>
+    <div class="loadbar" aria-hidden="true"><span id="lb"></span></div>
   </div>
-  <a class="enter" href="#inside" data-t="enter"></a>
-</header>
+</section>
 
 <main>
   <!-- INTÉRIEUR : plafond, ampoules, menu au mur -->
@@ -349,8 +394,10 @@ const T = {
  fr:{
   demo:"Démo proposée à Fenjen Café — à valider par l'équipe",
   sound:"Ambiance", lang:"العربية",
-  heroSub:"Le café de la Rue de Syrie, à deux pas de la Cité de la Culture.",
-  enter:"Entrer",
+  h1:"Latte Rouzata glacé", h1p:"Faites défiler : on vous montre ce qu'il y a dedans.",
+  c2:"Quatre couches, rien de plus.", l1:"Glace", l2:"Espresso", l3:"Lait", l4:"Rouzata",
+  h3:"Et tout revient à sa place.", h3p:"Latte Rouzata glacé, 7 DT. Chez Fenjen, 12 Rue de Syrie, Tunis.",
+  seeMenu:"Voir le menu", hint:"Faites défiler",
   insideH:"Le menu, tel qu'il est au mur",
   insideP:"Des classiques bien tirés, et quelques recettes d'ici : grenade, rouzata, datte, zrir.",
   menuTitle:"MENU",
@@ -376,8 +423,10 @@ const T = {
  ar:{
   demo:"نسخة تجريبية مقترحة على مقهى فنجان",
   sound:"الجو", lang:"Français",
-  heroSub:"قهوة نهج سوريا، بحذا مدينة الثقافة.",
-  enter:"ادخل",
+  h1:"لاتيه روزاطة باردة", h1p:"اهبط بالسكرول، نوريوك شنوّة فيها.",
+  c2:"أربعة طبقات، وبرّا.", l1:"ثلج", l2:"اكسبراس", l3:"حليب", l4:"روزاطة",
+  h3:"وكل شي يرجع لبلاصتو.", h3p:"لاتيه روزاطة باردة، 7 د. في فنجان، 12 نهج سوريا، تونس.",
+  seeMenu:"شوف المنيو", hint:"اهبط لتحت",
   insideH:"المنيو، كيما هو على الحيط",
   insideP:"الكلاسيكيات محضّرة كما يلزم، وزيد وصفات من عندنا: رمان، روزاطة، تمر، زريرة.",
   menuTitle:"المنيو",
@@ -422,10 +471,6 @@ let lang="fr";
 
 /* ---------- décor : guirlande + plafond ---------- */
 (function(){
-  const s=document.getElementById("strings");
-  for(let i=0;i<26;i++){const d=document.createElement("span");
-    const x=i/25*100, y=18+Math.sin(i*.9)*6+(i%2)*4;
-    d.style.left=x+"%";d.style.top=y+"%";d.style.animationDelay=(-i*.37)+"s";s.appendChild(d);}
   const r=document.getElementById("rail");
   [12,30,48,66,84].forEach(p=>{const sp=document.createElement("div");sp.className="spot";sp.style.left=p+"%";r.appendChild(sp);});
   const b=document.getElementById("bulbs");
@@ -457,11 +502,51 @@ function render(){
     const hh=HOURS[i]; return `<li class="${i===d?'today':''}"><span>${t.days[i]}</span><span dir="ltr">${hh?`0${hh[0]}:00 – ${hh[1]}:00`:t.shut}</span></li>`;}).join("");
 
   const url=`https://wa.me/${WA}?text=${encodeURIComponent(t.wa)}`;
-  document.getElementById("waBig").href=url; document.getElementById("waFab").href=url;
+  document.getElementById("waBig").href=url; document.getElementById("waFab").href=url; document.querySelectorAll(".waLink").forEach(a=>a.href=url);
 }
 document.getElementById("langBtn").onclick=()=>{lang=lang==="fr"?"ar":"fr";render();};
 document.getElementById("yr").textContent=new Date().getFullYear();
 render(); setInterval(render,60000);
+
+
+/* ---------- scrub : la vidéo suit le scroll ---------- */
+(function(){
+  const N=120, imgs=new Array(N), cv=document.getElementById("cv"), cx=cv.getContext("2d");
+  const sec=document.querySelector(".scrub"), lb=document.getElementById("lb"), hint=document.getElementById("hint");
+  const c1=document.querySelector(".c1"), c2=document.querySelector(".c2"), c3=document.querySelector(".c3"), lbls=[...document.querySelectorAll(".lbl")];
+  let loaded=0, cur=-1, rect={x:0,y:0,w:0,h:0}, want=0;
+  const src=i=>`frames/f_${String(i+1).padStart(3,"0")}.webp`;
+  function load(i){ if(imgs[i]) return; const im=new Image(); im.decoding="async"; im.src=src(i);
+    im.onload=()=>{loaded++; lb.style.width=(loaded/N*100)+"%"; if(loaded===N) lb.style.opacity=0; if(i===want||cur<0) draw(true);}; imgs[i]=im; }
+  // d'abord la 1re image, puis une sur 8, puis le reste
+  load(0); for(let i=8;i<N;i+=8) load(i); for(let i=1;i<N;i++) load(i);
+
+  function size(){ const d=Math.min(devicePixelRatio||1,2); cv.width=innerWidth*d; cv.height=innerHeight*d; cx.setTransform(d,0,0,d,0,0);
+    const W=innerWidth,H=innerHeight, r=720/1280, mobile=W<761;
+    if(mobile){ const s=Math.max(W/720,H/1280); rect.w=720*s; rect.h=1280*s; }
+    else { rect.h=H; rect.w=H*r; }
+    rect.x=mobile?(W-rect.w)/2:Math.max(W*.5,W-rect.w-W*.08)-rect.w*.1; if(!mobile) rect.x=W*.62-rect.w/2;
+    rect.y=(H-rect.h)/2; cur=-1; draw(true); }
+  function nearest(i){ for(let k=0;k<N;k++){ const a=imgs[i-k], b=imgs[i+k]; if(a&&a.complete&&a.naturalWidth) return a; if(b&&b.complete&&b.naturalWidth) return b; } return null; }
+  function draw(force){ const i=want; if(!force&&i===cur) return; const im=nearest(i); if(!im) return; cur=i;
+    const W=innerWidth,H=innerHeight; cx.clearRect(0,0,W,H); cx.drawImage(im,rect.x,rect.y,rect.w,rect.h);
+    if(W>=761){ // fondu des bords sur le décor
+      const g1=cx.createLinearGradient(rect.x,0,rect.x+90,0); g1.addColorStop(0,"rgba(13,10,6,1)"); g1.addColorStop(1,"rgba(13,10,6,0)");
+      cx.fillStyle=g1; cx.fillRect(rect.x-1,0,92,H);
+      const g2=cx.createLinearGradient(rect.x+rect.w-90,0,rect.x+rect.w,0); g2.addColorStop(0,"rgba(13,10,6,0)"); g2.addColorStop(1,"rgba(13,10,6,1)");
+      cx.fillStyle=g2; cx.fillRect(rect.x+rect.w-91,0,92,H);
+      cx.fillStyle="rgba(13,10,6,1)"; cx.fillRect(0,0,rect.x,H); cx.fillRect(rect.x+rect.w,0,W,H);
+    } }
+  function tick(){ const top=sec.getBoundingClientRect().top, span=sec.offsetHeight-innerHeight;
+    const p=Math.min(1,Math.max(0,-top/span)); want=Math.round(p*(N-1)); draw(false);
+    c1.classList.toggle("on",p<.16); c2.classList.toggle("on",p>.33&&p<.62); c3.classList.toggle("on",p>.84);
+    hint.style.opacity=p<.04?1:0;
+    const W=innerWidth, lx=Math.min(rect.x+rect.w*.74, W-(W<761?96:150));
+    lbls.forEach(l=>{ l.classList.toggle("on",p>.36&&p<.6); l.style.top=(rect.y+rect.h*parseFloat(l.dataset.y))+"px"; l.style.left=lx+"px"; });
+  }
+  addEventListener("resize",size); addEventListener("scroll",()=>requestAnimationFrame(tick),{passive:true});
+  size(); tick();
+})();
 
 /* ---------- ambiance sonore (générée, aucun fichier) ---------- */
 let ctx=null, master=null, timers=[];
