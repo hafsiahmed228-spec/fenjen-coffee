@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fenjen Café · فنجان — 12 Rue de Syrie, Tunis</title>
+<meta name="description" content="Fenjen Café, 12 Rue de Syrie à Tunis, près de la Cité de la Culture. Menu, horaires, itinéraire et commande à emporter sur WhatsApp.">
+<meta name="theme-color" content="#23271f">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Jost:wght@400;500;600&family=Pinyon+Script&family=Reem+Kufi:wght@500;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --plaster:#ecebe6;      /* mur blanc texturé de la façade */
+  --plaster-2:#e2e0d9;
+  --sage:#5d6a55;         /* lettres de l'enseigne */
+  --sage-d:#46523f;
+  --ceiling:#23271f;      /* plafond noir */
+  --bulb:#f3bd6a;         /* ampoules Edison */
+  --slate:#3d5563;        /* carreaux autour du menu */
+  --clay:#b8847a;         /* quadrilobes du tableau */
+  --wood:#7b5336;
+  --ink:#2b2e27;
+  --muted:#6e7268;
+  --display:"Marcellus", "Reem Kufi", Georgia, serif;
+  --body:"Jost", "IBM Plex Sans Arabic", system-ui, sans-serif;
+}
+[dir=rtl]{--display:"Reem Kufi","Marcellus",serif;--body:"IBM Plex Sans Arabic","Jost",system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font:400 17px/1.6 var(--body);color:var(--ink);background:var(--ceiling)}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--bulb);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1080px,100% - 40px);margin-inline:auto}
+
+/* texture plâtre */
+.plaster{background-color:var(--plaster);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3 0 0 0 0 .3 0 0 0 0 .28 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* barre du haut */
+.top{position:fixed;inset:0 0 auto;z-index:40;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px max(16px,env(safe-area-inset-left));pointer-events:none}
+.top > *{pointer-events:auto}
+.demo{font-size:12.5px;background:rgba(35,39,31,.82);color:#e9e6dc;padding:6px 12px;border-radius:999px;backdrop-filter:blur(6px)}
+.top .tools{display:flex;gap:8px}
+.pill{border:1px solid rgba(35,39,31,.18);background:rgba(236,235,230,.9);backdrop-filter:blur(6px);border-radius:999px;padding:7px 14px;font-size:14px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+.pill[aria-pressed=true]{background:var(--ceiling);color:var(--bulb);border-color:var(--ceiling)}
+@media(max-width:560px){.demo{display:none}}
+
+/* ---------- FAÇADE ---------- */
+.facade{min-height:100svh;display:grid;grid-template-rows:1fr auto auto;position:relative;overflow:hidden}
+.sign{display:grid;place-items:center;text-align:center;padding:90px 20px 34px;color:var(--sage)}
+.sign .ar{font:700 clamp(34px,7vw,64px)/1 "Reem Kufi",serif;letter-spacing:0;margin-bottom:6px}
+.sign h1{font:400 clamp(64px,16vw,168px)/.9 "Marcellus",serif;letter-spacing:.06em;margin-inline-start:.06em}
+.sign .cafe{display:flex;align-items:center;gap:18px;font-size:12px;letter-spacing:.2em;color:#a69f8f;margin-top:4px}
+.sign .cafe i{font:400 clamp(30px,5vw,44px)/1 "Pinyon Script",cursive;letter-spacing:0;color:#b9ae98;font-style:normal}
+.sign .sub{margin-top:26px;max-width:34ch;color:var(--muted);font-size:17px}
+.status{display:inline-flex;align-items:center;gap:9px;margin-top:22px;font-size:15px;font-weight:500;color:var(--ink)}
+.lamp{width:10px;height:10px;border-radius:50%;background:#9a9a90}
+.lamp.on{background:#5e9b62;box-shadow:0 0 0 5px rgba(94,155,98,.18)}
+.lamp.off{background:#b3655a}
+
+/* store */
+.awning{height:74px;position:relative;
+  background:repeating-linear-gradient(90deg,#f7f6f2 0 34px,#e6e4dd 34px 36px);
+  box-shadow:0 18px 26px -14px rgba(0,0,0,.45);z-index:2}
+.awning::after{content:"";position:absolute;inset:auto 0 -14px;height:14px;
+  background:radial-gradient(circle at 18px 0,#f1efea 13px,transparent 14px) 0 0/36px 14px repeat-x}
+.window{position:relative;height:clamp(200px,34vh,320px);background:linear-gradient(180deg,#1c1f19,#2a2d24 70%,#33362b);overflow:hidden;
+  border-inline:14px solid #d6d3cb}
+.window .strings span{position:absolute;width:5px;height:5px;border-radius:50%;background:var(--bulb);box-shadow:0 0 10px 3px rgba(243,189,106,.55)}
+.window .reflect{position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.06) 42%,transparent 50%,transparent 62%,rgba(255,255,255,.04) 70%,transparent 76%)}
+.enter{position:absolute;left:50%;bottom:28px;transform:translateX(-50%);z-index:3;
+  background:var(--plaster);color:var(--sage-d);text-decoration:none;font-weight:600;padding:14px 26px;border-radius:999px;display:inline-flex;gap:10px;align-items:center;box-shadow:0 10px 30px -10px rgba(0,0,0,.6)}
+.leaves{position:absolute;inset:auto 0 0;height:120px;pointer-events:none;z-index:2}
+
+/* ---------- À L'INTÉRIEUR ---------- */
+.inside{background:var(--ceiling);color:#e8e5da;position:relative;padding-bottom:90px}
+.rail{height:70px;position:relative}
+.rail::before,.rail::after{content:"";position:absolute;height:3px;background:#3a3f35;inset-inline:6%}
+.rail::before{top:22px}.rail::after{top:44px;inset-inline:18%}
+.spot{position:absolute;top:14px;width:16px;height:30px;background:#d9d7cf;border-radius:3px 3px 8px 8px}
+.bulbs{position:relative;height:160px;margin-top:-50px;z-index:3;pointer-events:none}
+.bulb{position:absolute;top:0;width:2px;background:#c9c2b2;transform-origin:top center}
+.bulb::after{content:"";position:absolute;left:50%;bottom:-30px;width:28px;height:34px;transform:translateX(-50%);
+  border-radius:48% 48% 50% 50%/42% 42% 58% 58%;background:radial-gradient(circle at 50% 60%,#5a5246,#3d382f 70%);
+  transition:background .6s ease,box-shadow .6s ease}
+.bulb::before{content:"";position:absolute;left:50%;bottom:-2px;width:12px;height:10px;transform:translateX(-50%);background:#e9e4d6;border-radius:2px}
+.lit .bulb::after{background:radial-gradient(circle at 50% 60%,#fff3d6,#f6c879 45%,#e2a14c 80%);box-shadow:0 0 22px 8px rgba(243,189,106,.45),0 0 80px 30px rgba(243,189,106,.16)}
+@media (prefers-reduced-motion:no-preference){
+  .lit .bulb{animation:sway 6s ease-in-out infinite alternate}
+  .lit .bulb:nth-child(2n){animation-duration:7.5s;animation-delay:-2s}
+}
+@keyframes sway{from{transform:rotate(-1.2deg)}to{transform:rotate(1.2deg)}}
+
+.intro{text-align:center;max-width:40ch;margin:0 auto 34px;color:#bdb9ac}
+.intro h2{font:400 clamp(30px,5vw,44px)/1.15 var(--display);color:#f0ede4;margin-bottom:10px}
+
+/* le tableau-menu, comme au mur */
+.board{position:relative;border:12px solid var(--wood);border-radius:4px;padding:18px;
+  background:
+    linear-gradient(var(--plaster),var(--plaster)) padding-box,
+    var(--plaster);
+  box-shadow:0 40px 80px -30px rgba(0,0,0,.8)}
+.tiles{position:absolute;inset:0;pointer-events:none;
+  background:
+   repeating-linear-gradient(90deg,var(--slate) 0 58px,var(--plaster) 58px 64px) top/100% 18px no-repeat,
+   repeating-linear-gradient(90deg,var(--slate) 0 58px,var(--plaster) 58px 64px) bottom/100% 18px no-repeat,
+   repeating-linear-gradient(180deg,var(--slate) 0 58px,var(--plaster) 58px 64px) left/18px 100% no-repeat,
+   repeating-linear-gradient(180deg,var(--slate) 0 58px,var(--plaster) 58px 64px) right/18px 100% no-repeat}
+.quat{position:absolute;width:38px;height:38px;z-index:1}
+.quat.tl{top:-6px;left:-6px}.quat.tr{top:-6px;right:-6px}.quat.bl{bottom:-6px;left:-6px}.quat.br{bottom:-6px;right:-6px}
+.board-in{position:relative;padding:44px clamp(20px,5vw,64px) 48px;color:var(--ink)}
+.board h3.menu-title{font:400 clamp(54px,10vw,92px)/1 "Marcellus",serif;letter-spacing:.14em;text-align:center;color:#2f3a40;margin-bottom:34px}
+[dir=rtl] .board h3.menu-title{font-family:"Reem Kufi",serif;letter-spacing:0}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:10px 64px}
+@media(max-width:760px){.cols{grid-template-columns:1fr}.board{padding:12px;border-width:9px}.tiles{background-size:100% 12px,100% 12px,12px 100%,12px 100%}.quat{width:28px;height:28px}}
+.grp{break-inside:avoid;margin-bottom:26px}
+.grp h4{font:500 22px/1.2 var(--body);color:#2f3a40;margin-bottom:10px;text-align:center}
+.row{display:flex;align-items:baseline;gap:8px;padding:5px 0;font-size:16px}
+.row .dots{flex:1;border-bottom:1.5px dotted #b6b2a6;transform:translateY(-4px)}
+.row .p{font-variant-numeric:tabular-nums;font-weight:500;min-width:2.6em;text-align:end}
+.row small{display:block;font-size:13px;color:var(--muted);line-height:1.3}
+.row.local .n::after{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--clay);margin-inline-start:8px;vertical-align:middle}
+.legend{font-size:13.5px;color:var(--muted);text-align:center;margin-top:6px}
+.legend::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--clay);margin-inline-end:8px;vertical-align:middle}
+.board-note{text-align:center;font-size:13px;color:#99958a;margin-top:20px}
+
+/* ---------- LE COIN ---------- */
+.corner{padding:96px 0}
+.corner-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+@media(max-width:860px){.corner-grid{grid-template-columns:1fr;gap:36px}}
+.corner h2{font:400 clamp(32px,5vw,48px)/1.12 var(--display);color:var(--sage-d);margin-bottom:16px;max-width:16ch}
+.corner p{color:#4f5349;max-width:44ch}
+.facts{list-style:none;margin-top:26px;display:grid;gap:12px}
+.facts li{display:flex;gap:14px;align-items:flex-start}
+.facts svg{flex:none;width:22px;height:22px;margin-top:3px;color:var(--sage)}
+.scene{width:100%;height:auto;display:block}
+
+/* ---------- VENIR ---------- */
+.visit{background:var(--plaster-2);padding:90px 0}
+.visit h2{font:400 clamp(32px,5vw,48px)/1.12 var(--display);color:var(--sage-d);margin-bottom:28px}
+.visit-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:24px}
+@media(max-width:860px){.visit-grid{grid-template-columns:1fr}}
+.door{background:linear-gradient(160deg,#2a2e26,#1f221c);color:#efece3;border-radius:6px;padding:30px 28px;position:relative}
+.door .h{font:400 26px/1 "Marcellus",serif;letter-spacing:.06em;margin-bottom:18px;color:#fff}
+[dir=rtl] .door .h{font-family:"Reem Kufi",serif;letter-spacing:0}
+.door ul{list-style:none}
+.door li{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.1);font-size:16px}
+.door li.today{color:var(--bulb);font-weight:600}
+.door .addr{margin-top:22px;font-size:15px;color:#c9c5b9}
+.door .addr a{text-decoration:none;color:#fff}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.btn{display:inline-flex;align-items:center;gap:9px;padding:12px 20px;border-radius:999px;font-weight:600;font-size:15px;text-decoration:none;border:0;cursor:pointer}
+.btn.light{background:var(--plaster);color:var(--sage-d)}
+.btn.ghost{border:1px solid rgba(255,255,255,.3);color:#fff}
+.map{border-radius:6px;overflow:hidden;min-height:360px;background:#d8d5cc}
+.map iframe{display:block;width:100%;height:100%;min-height:360px;border:0;filter:saturate(.75) contrast(.95)}
+
+/* ---------- À EMPORTER ---------- */
+.takeaway{background:var(--sage);color:#f1efe7;padding:70px 0;text-align:center}
+.takeaway h2{font:400 clamp(28px,4.5vw,40px)/1.15 var(--display);margin-bottom:10px}
+.takeaway p{max-width:40ch;margin:0 auto 26px;color:#dfe3d7}
+.btn.wa{background:#f1efe7;color:var(--sage-d)}
+
+footer{background:var(--ceiling);color:#a9a59a;text-align:center;font-size:14px;padding:40px 20px 110px}
+footer a{color:var(--bulb);text-decoration:none;font-weight:500}
+
+.fab{position:fixed;bottom:max(18px,env(safe-area-inset-bottom));inset-inline-end:18px;z-index:40;width:56px;height:56px;border-radius:50%;background:#25d366;color:#fff;display:grid;place-items:center;box-shadow:0 10px 24px -6px rgba(0,0,0,.45)}
+.fab svg{width:28px;height:28px}
+
+@media (prefers-reduced-motion:no-preference){
+  .window .strings span{animation:twinkle 4s ease-in-out infinite}
+}
+@keyframes twinkle{50%{opacity:.55}}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <span class="demo" data-t="demo"></span>
+  <div class="tools">
+    <button class="pill" id="soundBtn" aria-pressed="false"><span aria-hidden="true">♪</span><span data-t="sound"></span></button>
+    <button class="pill" id="langBtn"></button>
+  </div>
+</div>
+
+<!-- FAÇADE -->
+<header class="facade plaster" id="top">
+  <div class="sign">
+    <div class="ar" lang="ar">فنجان</div>
+    <h1>FENJEN</h1>
+    <div class="cafe"><span>EST</span><i>Café</i><span>2024</span></div>
+    <p class="sub" data-t="heroSub"></p>
+    <div class="status"><span class="lamp" id="lamp"></span><span id="statusTxt"></span></div>
+  </div>
+
+  <div class="awning" aria-hidden="true"></div>
+  <div class="window" aria-hidden="true">
+    <div class="strings" id="strings"></div>
+    <div class="reflect"></div>
+    <svg class="leaves" viewBox="0 0 1200 120" preserveAspectRatio="none">
+      <g fill="#3f5a3a">
+        <path d="M0 120 C40 60 80 40 130 30 C100 60 80 90 70 120Z"/>
+        <path d="M60 120 C90 50 150 10 210 0 C170 40 140 80 130 120Z" fill="#4c6a45"/>
+        <path d="M150 120 C170 80 200 60 250 55 C220 80 205 100 200 120Z"/>
+        <path d="M1200 120 C1160 60 1120 40 1070 30 C1100 60 1120 90 1130 120Z"/>
+        <path d="M1140 120 C1110 50 1050 10 990 0 C1030 40 1060 80 1070 120Z" fill="#4c6a45"/>
+        <path d="M1050 120 C1030 80 1000 60 950 55 C980 80 995 100 1000 120Z"/>
+        <path d="M520 120 C540 90 570 80 600 78 C630 80 660 90 680 120Z" fill="#35502f"/>
+      </g>
+    </svg>
+  </div>
+  <a class="enter" href="#inside" data-t="enter"></a>
+</header>
+
+<main>
+  <!-- INTÉRIEUR : plafond, ampoules, menu au mur -->
+  <section class="inside" id="inside">
+    <div class="rail" aria-hidden="true" id="rail"></div>
+    <div class="bulbs" aria-hidden="true" id="bulbs"></div>
+
+    <div class="wrap">
+      <div class="intro">
+        <h2 data-t="insideH"></h2>
+        <p data-t="insideP"></p>
+      </div>
+
+      <div class="board" id="menu">
+        <div class="tiles"></div>
+        <svg class="quat tl" viewBox="0 0 40 40"><use href="#q"/></svg>
+        <svg class="quat tr" viewBox="0 0 40 40"><use href="#q"/></svg>
+        <svg class="quat bl" viewBox="0 0 40 40"><use href="#q"/></svg>
+        <svg class="quat br" viewBox="0 0 40 40"><use href="#q"/></svg>
+        <div class="board-in plaster">
+          <h3 class="menu-title" data-t="menuTitle"></h3>
+          <div class="cols" id="cols"></div>
+          <p class="legend" data-t="legend"></p>
+          <p class="board-note" data-t="priceNote"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LE COIN -->
+  <section class="corner plaster">
+    <div class="wrap corner-grid">
+      <div>
+        <h2 data-t="cornerH"></h2>
+        <p data-t="cornerP"></p>
+        <ul class="facts">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span data-t="f1"></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 10h16v8H4zM6 10V7h12v3M8 18v2M16 18v2"/></svg><span data-t="f2"></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 19c2-6 6-10 14-12-1 8-5 12-11 13"/><path d="M5 19l7-7"/></svg><span data-t="f3"></span></li>
+        </ul>
+      </div>
+      <!-- le salon : claustra en bois, canapé sauge, plantes -->
+      <svg class="scene" viewBox="0 0 520 420" role="img" aria-label="Salon du café : canapé vert sauge, claustra en bois et plantes">
+        <rect x="0" y="0" width="520" height="420" fill="#e7e5df"/>
+        <rect x="0" y="0" width="520" height="46" fill="#23271f"/>
+        <rect x="60" y="20" width="400" height="3" fill="#3a3f35"/>
+        <g fill="#d9d7cf"><rect x="110" y="14" width="10" height="20" rx="2"/><rect x="250" y="14" width="10" height="20" rx="2"/><rect x="390" y="14" width="10" height="20" rx="2"/></g>
+        <g fill="#b7895f"><rect x="300" y="60" width="200" height="230" fill="#c99a6d"/></g>
+        <g fill="#9c6f48">
+          <rect x="300" y="60" width="12" height="230"/><rect x="326" y="60" width="12" height="230"/><rect x="352" y="60" width="12" height="230"/><rect x="378" y="60" width="12" height="230"/><rect x="404" y="60" width="12" height="230"/><rect x="430" y="60" width="12" height="230"/><rect x="456" y="60" width="12" height="230"/><rect x="482" y="60" width="12" height="230"/>
+          <rect x="300" y="90" width="200" height="6"/><rect x="300" y="130" width="200" height="6"/><rect x="300" y="170" width="200" height="6"/><rect x="300" y="210" width="200" height="6"/><rect x="300" y="250" width="200" height="6"/>
+        </g>
+        <rect x="0" y="330" width="520" height="90" fill="#cfcbc1"/>
+        <g fill="#bdb8ac" opacity=".6"><circle cx="60" cy="360" r="3"/><circle cx="140" cy="390" r="2"/><circle cx="230" cy="350" r="2.5"/><circle cx="330" cy="395" r="2"/><circle cx="440" cy="365" r="3"/><circle cx="480" cy="405" r="2"/></g>
+        <!-- plantes -->
+        <g>
+          <path d="M40 330 C10 250 30 190 60 150 C70 210 70 270 60 330Z" fill="#4c6a45"/>
+          <path d="M70 330 C80 240 120 190 170 170 C140 230 110 280 95 330Z" fill="#3f5a3a"/>
+          <path d="M20 330 C0 290 -10 260 0 220 C30 260 40 300 45 330Z" fill="#5d7d55"/>
+          <path d="M240 300 C230 240 250 200 280 180 C285 230 275 270 262 300Z" fill="#4c6a45"/>
+          <path d="M258 300 C270 250 300 230 330 225 C310 260 290 285 275 300Z" fill="#5d7d55"/>
+        </g>
+        <!-- canapé sauge -->
+        <g>
+          <rect x="100" y="250" width="190" height="56" rx="14" fill="#8c9c84"/>
+          <rect x="88" y="236" width="36" height="78" rx="12" fill="#7e8e76"/>
+          <rect x="266" y="236" width="36" height="78" rx="12" fill="#7e8e76"/>
+          <rect x="118" y="222" width="70" height="44" rx="12" fill="#97a68f"/>
+          <rect x="196" y="222" width="70" height="44" rx="12" fill="#97a68f"/>
+          <rect x="100" y="314" width="8" height="18" fill="#5a4a3a"/><rect x="282" y="314" width="8" height="18" fill="#5a4a3a"/>
+        </g>
+        <!-- table basse + tasse -->
+        <rect x="150" y="320" width="120" height="16" rx="3" fill="#f2f0ea"/>
+        <rect x="160" y="336" width="100" height="28" fill="#e6e3da"/>
+        <path d="M196 306 h22 v12 a11 8 0 0 1 -22 0z" fill="#fff"/>
+        <path d="M218 309 c8 0 8 9 0 9" fill="none" stroke="#fff" stroke-width="3"/>
+        <!-- ampoule -->
+        <line x1="420" y1="46" x2="420" y2="120" stroke="#c9c2b2" stroke-width="2"/>
+        <ellipse cx="420" cy="132" rx="11" ry="14" fill="#f6c879"/>
+        <circle cx="420" cy="132" r="34" fill="#f3bd6a" opacity=".18"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- VENIR -->
+  <section class="visit" id="visit">
+    <div class="wrap">
+      <h2 data-t="visitH"></h2>
+      <div class="visit-grid">
+        <div class="door">
+          <div class="h" data-t="hoursH"></div>
+          <ul id="hours"></ul>
+          <div class="addr">
+            <div data-t="addr"></div>
+            <div style="margin-top:6px"><a href="tel:+21626348251" dir="ltr">+216 26 348 251</a></div>
+          </div>
+          <div class="actions">
+            <a class="btn light" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=36.8092047,10.1836546" data-t="route"></a>
+            <a class="btn ghost" href="tel:+21626348251" data-t="call"></a>
+          </div>
+        </div>
+        <div class="map">
+          <iframe loading="lazy" title="Fenjen Café — Google Maps" src="https://maps.google.com/maps?q=36.8092047,10.1836546&z=17&output=embed"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="takeaway">
+    <div class="wrap">
+      <h2 data-t="taH"></h2>
+      <p data-t="taP"></p>
+      <a class="btn wa" id="waBig" target="_blank" rel="noopener" data-t="taBtn"></a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>© <span id="yr"></span> Fenjen Café — 12 Rue de Syrie, Tunis</p>
+  <p style="margin-top:8px" data-t="credit"></p>
+</footer>
+
+<a class="fab" id="waFab" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg>
+</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="q" viewBox="0 0 40 40"><path fill="#b8847a" d="M20 2a9 9 0 0 1 8.5 11.5A9 9 0 1 1 26.5 28.5 9 9 0 1 1 13.5 26.5 9 9 0 1 1 11.5 11.5 9 9 0 0 1 20 2z"/></symbol>
+</svg>
+
+<script>
+/* ---------- textes ---------- */
+const T = {
+ fr:{
+  demo:"Démo proposée à Fenjen Café — à valider par l'équipe",
+  sound:"Ambiance", lang:"العربية",
+  heroSub:"Le café de la Rue de Syrie, à deux pas de la Cité de la Culture.",
+  enter:"Entrer",
+  insideH:"Le menu, tel qu'il est au mur",
+  insideP:"Des classiques bien tirés, et quelques recettes d'ici : grenade, rouzata, datte, zrir.",
+  menuTitle:"MENU",
+  legend:"Saveurs tunisiennes",
+  priceNote:"Prix en dinars, d'après le tableau du café (septembre 2026).",
+  cornerH:"Un coin vert au cœur du quartier",
+  cornerP:"Des plantes partout, des canapés vert sauge, un claustra en bois et des ampoules qui chauffent la lumière. On vient pour le petit-déj, une pause entre deux rendez-vous, ou après une expo à la Cité de la Culture.",
+  f1:"Ouvert dès 7h, du lundi au samedi",
+  f2:"Commandez au comptoir, puis installez-vous où vous voulez",
+  f3:"Croissants et sandwichs frais toute la journée",
+  visitH:"Venir chez Fenjen",
+  hoursH:"Horaires",
+  addr:"12 Rue de Syrie, Tunis 1002 — en face de la Cité de la Culture",
+  route:"Itinéraire", call:"Appeler",
+  taH:"Un café à emporter ?",
+  taP:"Envoyez votre commande sur WhatsApp, elle vous attend au comptoir.",
+  taBtn:"Commander sur WhatsApp",
+  credit:"Site conçu par <a href='https://wa.me/21698151297' target='_blank' rel='noopener'>Ahmed Hafsi</a>",
+  open:h=>`Ouvert maintenant, jusqu'à ${h}h`, closed:"Fermé pour le moment, réouverture à 7h", closedSun:"Fermé le dimanche, réouverture lundi à 7h",
+  shut:"Fermé", wa:"Bonjour Fenjen, je voudrais commander à emporter :",
+  days:["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"]
+ },
+ ar:{
+  demo:"نسخة تجريبية مقترحة على مقهى فنجان",
+  sound:"الجو", lang:"Français",
+  heroSub:"قهوة نهج سوريا، بحذا مدينة الثقافة.",
+  enter:"ادخل",
+  insideH:"المنيو، كيما هو على الحيط",
+  insideP:"الكلاسيكيات محضّرة كما يلزم، وزيد وصفات من عندنا: رمان، روزاطة، تمر، زريرة.",
+  menuTitle:"المنيو",
+  legend:"نكهات تونسية",
+  priceNote:"الأسعار بالدينار، حسب لوحة المقهى (سبتمبر 2026).",
+  cornerH:"ركن أخضر في قلب الحومة",
+  cornerP:"نبات في كل بلاصة، كنابيات خضر، حاجز خشب وضوّ أصفر دافي. تجي للفطور، لقعدة بين موعدين، ولا بعد معرض في مدينة الثقافة.",
+  f1:"نحلّو من 7 الصباح، من الإثنين للسبت",
+  f2:"تطلب في الكونتوار وتقعد وين تحب",
+  f3:"كرواسون وسندويتشات فرش طول النهار",
+  visitH:"كيفاش توصل لفنجان",
+  hoursH:"الأوقات",
+  addr:"12 نهج سوريا، تونس 1002 — قبالة مدينة الثقافة",
+  route:"الطريق", call:"اتّصل",
+  taH:"تحب قهوة تاخوها معاك؟",
+  taP:"ابعث طلبك على واتساب، تلقاه يستنا فيك في الكونتوار.",
+  taBtn:"اطلب على واتساب",
+  credit:"تصميم الموقع: <a href='https://wa.me/21698151297' target='_blank' rel='noopener'>أحمد الحفصي</a>",
+  open:h=>`محلول توّا، حتى الساعة ${h}`, closed:"مسكّر توّا، نحلّو مع 7 الصباح", closedSun:"مسكّر نهار الأحد، نحلّو الإثنين مع 7",
+  shut:"مسكّر", wa:"السلام فنجان، نحب نطلب نديه معايا:",
+  days:["الأحد","الإثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"]
+ }
+};
+
+/* ---------- menu réel (photo du tableau, sept. 2026) ---------- */
+const MENU = [
+ {fr:"Classic Coffee", ar:"قهوة كلاسيك", items:[
+  ["Espresso","اكسبراس",2.5],["Espresso Double","اكسبراس دوبل",3.8],["Américain","أمريكان",3],
+  ["Café Turc","قهوة تركية",3.8],["Latte","لاتيه",3.2],["Chocolat au lait","شوكولا بالحليب",4],["Cappuccino","كابوتشينو",4.5]]},
+ {fr:"Latte & Macchiato", ar:"لاتيه وماكياتو", items:[
+  ["Vanilla Latte","لاتيه فانيليا",6.5],["Hot Spicy Latte","لاتيه بالبهارات",6],["Macchiato Caramel","ماكياتو كراميل",6.5],
+  ["Macchiato Chocolat","ماكياتو شوكولا",6.5],["Latte Grenade","لاتيه رمان",6.5,1],["Latte Rouzata","لاتيه روزاطة",6.5,1]]},
+ {fr:"Iced Drinks", ar:"مشروبات باردة", items:[
+  ["Americano","أمريكانو",5.5],["Latte","لاتيه",6.5],["Latte Vanille","لاتيه فانيليا",7],["Latte Grenade","لاتيه رمان",7.5,1],
+  ["Latte Rouzata","لاتيه روزاطة",7,1],["Macchiato Caramel","ماكياتو كراميل",7.5],["Macchiato Chocolat","ماكياتو شوكولا",7.5],["Espresso Tonic","اكسبراس تونيك",7]]},
+ {fr:"Frappuccino", ar:"فرابوتشينو", items:[
+  ["Caramel","كراميل",11],["Datte","تمر",11,1],["Hazelnut","بندق",11],["Zrir","زريرة",12,1]]}
+];
+const HOURS=[null,[7,20],[7,20],[7,20],[7,20],[7,20],[7,20]];
+const WA="21626348251";
+let lang="fr";
+
+/* ---------- décor : guirlande + plafond ---------- */
+(function(){
+  const s=document.getElementById("strings");
+  for(let i=0;i<26;i++){const d=document.createElement("span");
+    const x=i/25*100, y=18+Math.sin(i*.9)*6+(i%2)*4;
+    d.style.left=x+"%";d.style.top=y+"%";d.style.animationDelay=(-i*.37)+"s";s.appendChild(d);}
+  const r=document.getElementById("rail");
+  [12,30,48,66,84].forEach(p=>{const sp=document.createElement("div");sp.className="spot";sp.style.left=p+"%";r.appendChild(sp);});
+  const b=document.getElementById("bulbs");
+  [[10,70],[24,110],[38,84],[52,124],[66,90],[80,116],[92,76]].forEach(([x,h])=>{
+    const e=document.createElement("div");e.className="bulb";e.style.left=x+"%";e.style.height=h+"px";b.appendChild(e);});
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){b.classList.add("lit");io.disconnect();}}),{threshold:.6});
+  io.observe(b);
+})();
+
+function nowTunis(){return new Date(new Date().toLocaleString("en-US",{timeZone:"Africa/Tunis"}));}
+
+function render(){
+  const t=T[lang], ar=lang==="ar";
+  document.documentElement.lang=lang; document.documentElement.dir=ar?"rtl":"ltr";
+  document.querySelectorAll("[data-t]").forEach(el=>{const v=t[el.dataset.t]; if(typeof v==="string") el.innerHTML=v;});
+  document.getElementById("langBtn").textContent=t.lang;
+
+  document.getElementById("cols").innerHTML=MENU.map(g=>`
+    <div class="grp"><h4>${ar?g.ar:g.fr}</h4>${g.items.map(([fr,a,p,loc])=>`
+      <div class="row${loc?' local':''}"><span class="n">${ar?a:fr}</span><span class="dots"></span><span class="p" dir="ltr">${String(p).replace('.',',')}</span></div>`).join("")}
+    </div>`).join("");
+
+  const n=nowTunis(), d=n.getDay(), h=HOURS[d], x=n.getHours()+n.getMinutes()/60;
+  const open=h&&x>=h[0]&&x<h[1];
+  document.getElementById("lamp").className="lamp "+(open?"on":"off");
+  document.getElementById("statusTxt").textContent=open?t.open(h[1]):(d===0||(d===6&&x>=20)?t.closedSun:t.closed);
+
+  document.getElementById("hours").innerHTML=[1,2,3,4,5,6,0].map(i=>{
+    const hh=HOURS[i]; return `<li class="${i===d?'today':''}"><span>${t.days[i]}</span><span dir="ltr">${hh?`0${hh[0]}:00 – ${hh[1]}:00`:t.shut}</span></li>`;}).join("");
+
+  const url=`https://wa.me/${WA}?text=${encodeURIComponent(t.wa)}`;
+  document.getElementById("waBig").href=url; document.getElementById("waFab").href=url;
+}
+document.getElementById("langBtn").onclick=()=>{lang=lang==="fr"?"ar":"fr";render();};
+document.getElementById("yr").textContent=new Date().getFullYear();
+render(); setInterval(render,60000);
+
+/* ---------- ambiance sonore (générée, aucun fichier) ---------- */
+let ctx=null, master=null, timers=[];
+function noiseBuffer(c,sec,brown){
+  const b=c.createBuffer(1,c.sampleRate*sec,c.sampleRate), d=b.getChannelData(0); let last=0;
+  for(let i=0;i<d.length;i++){const w=Math.random()*2-1; if(brown){last=(last+.02*w)/1.02; d[i]=last*3.5;} else d[i]=w;}
+  return b;
+}
+function startSound(){
+  ctx=new (window.AudioContext||window.webkitAudioContext)();
+  master=ctx.createGain(); master.gain.value=0; master.connect(ctx.destination);
+  master.gain.linearRampToValueAtTime(.9,ctx.currentTime+1.5);
+  // brouhaha de la salle
+  const m=ctx.createBufferSource(); m.buffer=noiseBuffer(ctx,4,true); m.loop=true;
+  const bp=ctx.createBiquadFilter(); bp.type="bandpass"; bp.frequency.value=420; bp.Q.value=.7;
+  const g=ctx.createGain(); g.gain.value=.22;
+  const lfo=ctx.createOscillator(), lg=ctx.createGain(); lfo.frequency.value=.13; lg.gain.value=.07; lfo.connect(lg); lg.connect(g.gain); lfo.start();
+  m.connect(bp); bp.connect(g); g.connect(master); m.start();
+  // tasses et cuillères
+  const clink=()=>{const t=ctx.currentTime;[2350,3120,4480].forEach((f,i)=>{const o=ctx.createOscillator(),e=ctx.createGain();
+      o.frequency.value=f*(1+Math.random()*.03); e.gain.setValueAtTime(.05/(i+1),t); e.gain.exponentialRampToValueAtTime(.0001,t+.5+Math.random()*.4);
+      o.connect(e); e.connect(master); o.start(t); o.stop(t+1);});
+    timers.push(setTimeout(clink,2500+Math.random()*6000));};
+  // vapeur de la machine
+  const steam=()=>{const t=ctx.currentTime, s=ctx.createBufferSource(); s.buffer=noiseBuffer(ctx,3,false);
+    const hp=ctx.createBiquadFilter(); hp.type="highpass"; hp.frequency.value=3000; const e=ctx.createGain();
+    e.gain.setValueAtTime(0,t); e.gain.linearRampToValueAtTime(.035,t+.3); e.gain.linearRampToValueAtTime(0,t+2.4);
+    s.connect(hp); hp.connect(e); e.connect(master); s.start(t); s.stop(t+2.6);
+    timers.push(setTimeout(steam,14000+Math.random()*16000));};
+  timers.push(setTimeout(clink,1200)); timers.push(setTimeout(steam,5000));
+}
+function stopSound(){timers.forEach(clearTimeout); timers=[]; if(ctx){const c=ctx; master.gain.linearRampToValueAtTime(0,c.currentTime+.6); setTimeout(()=>c.close(),700); ctx=null;}}
+document.getElementById("soundBtn").onclick=e=>{
+  const on=e.currentTarget.getAttribute("aria-pressed")!=="true";
+  e.currentTarget.setAttribute("aria-pressed",on); on?startSound():stopSound();
+};
+</script>
+</body>
+</html>
